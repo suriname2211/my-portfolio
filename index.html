@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdullah Imran Kabir — Applicant Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --carbon:#1d1d1f;
+    --frost:#f5f5f7;
+    --ice:#f4f8fb;
+    --smoke:#333333;
+    --graphite:#474747;
+    --ash:#707070;
+    --mist:#858585;
+    --onyx:#000000;
+    --pebble:#e2e2e5;
+    --hairline:#d2d2d7;
+    --apple-blue:#0071e3;
+    --link-blue:#0066cc;
+    --signal-blue:#2997ff;
+    --white:#ffffff;
+    --maxw:1000px;
+    --text-maxw:680px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--frost);
+    color:var(--carbon);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:17px;
+    line-height:1.47;
+    letter-spacing:-0.272px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--link-blue); text-decoration:none;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  .prose{max-width:var(--text-maxw); margin-left:auto; margin-right:auto;}
+  h1,h2,h3{margin:0; color:var(--carbon); font-weight:600;}
+  p{margin:0 0 16px;}
+
+  /* ---- Nav ---- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(29,29,31,0.92);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--smoke);
+  }
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:10px; padding-bottom:10px;
+    max-width:1200px;
+  }
+  .nav-name{ font-size:13px; font-weight:600; color:var(--frost); letter-spacing:-0.01em;}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a{
+    font-size:12px; color:var(--frost); opacity:0.82;
+    transition:opacity .2s ease;
+  }
+  .nav-links a:hover, .nav-links a.active{opacity:1;}
+  .nav-cv{
+    font-size:12px; font-weight:400; color:var(--frost)!important;
+    border:1px solid var(--mist); border-radius:980px;
+    padding:6px 14px; opacity:0.95;
+    transition:background .2s ease, opacity .2s ease;
+  }
+  .nav-cv:hover{background:rgba(245,245,247,0.12); opacity:1;}
+  @media (max-width:680px){ .nav-links{display:none;} }
+
+  /* ---- Scroll progress ---- */
+  .progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:var(--apple-blue); z-index:100;
+    transition:width .1s linear;
+  }
+
+  /* ---- Buttons ---- */
+  .btn-row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .pill{
+    display:inline-block;
+    border-radius:980px;
+    font-size:17px; font-weight:400;
+    padding:11px 22px;
+    letter-spacing:-0.016em;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .pill-filled{background:var(--apple-blue); color:var(--white)!important; border:none;}
+  .pill-filled:hover{background:#0077ed; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,113,227,0.28);}
+  .pill-outline{background:transparent; color:var(--link-blue)!important; border:1px solid var(--link-blue);}
+  .pill-outline:hover{background:rgba(0,102,204,0.06); transform:translateY(-1px);}
+  .pill-disabled{
+    background:transparent; color:var(--mist)!important; border:1px solid var(--hairline);
+    cursor:not-allowed; opacity:0.7;
+  }
+  .pill-disabled:hover{background:none; transform:none; box-shadow:none;}
+
+  /* ---- Hero ---- */
+  .hero{
+    padding:96px 0 72px;
+    text-align:center;
+    background:var(--frost);
+  }
+  .hero-kicker{
+    font-size:14px; font-weight:400; color:var(--ash);
+    text-transform:uppercase; letter-spacing:0.06em;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:56px; line-height:1.07; letter-spacing:0.616px;
+    font-weight:600;
+  }
+  .hero .lede{
+    font-size:26px; font-weight:300; line-height:1.3;
+    color:var(--carbon);
+    max-width:680px; margin:22px auto 0;
+    letter-spacing:0;
+  }
+  .hero-meta{
+    margin:26px 0 40px;
+    font-size:14px; color:var(--ash);
+    display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+  }
+  .hero-meta a{color:var(--ash);}
+  .hero-photo{
+    margin:52px auto 0;
+    width:220px; height:220px;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:rgba(0,0,0,0.22) 3px 5px 30px 0px;
+    transition:transform .12s ease-out;
+    will-change:transform;
+  }
+  .hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+
+  /* ---- Section shell ---- */
+  section{padding:72px 0;}
+  .band-frost{background:var(--frost);}
+  .band-white{background:var(--white);}
+  .band-ice{background:var(--ice);}
+  .section-eyebrow{
+    text-align:center; font-size:14px; color:var(--ash);
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;
+  }
+  .section-title{
+    text-align:center; font-size:40px; line-height:1.14; letter-spacing:0.44px;
+    margin-bottom:36px;
+  }
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---- Why Saudi ---- */
+  .prose p{font-size:19px; color:var(--smoke); line-height:1.5;}
+
+  /* ---- Education grid ---- */
+  .grade-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;
+    margin-top:32px;
+  }
+  .grade-tile{
+    background:var(--white);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:20px 18px;
+    text-align:center;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .grade-tile:hover{
+    transform:translateY(-3px);
+    box-shadow:rgba(0,0,0,0.1) 3px 8px 24px 0px;
+    border-color:var(--mist);
+  }
+  .grade-tile .subj{font-size:13px; color:var(--ash); margin-bottom:6px;}
+  .grade-tile .mark{font-size:28px; font-weight:600; color:var(--carbon);}
+
+  .quote-row{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:40px;}
+  @media (max-width:680px){ .quote-row{grid-template-columns:1fr;} }
+  .quote{
+    background:var(--white);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:24px 26px;
+    font-size:17px; color:var(--smoke); font-style:italic;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .quote:hover{transform:translateY(-3px); box-shadow:rgba(0,0,0,0.1) 3px 8px 24px 0px;}
+  .quote cite{
+    display:block; margin-top:14px; font-style:normal;
+    font-size:13px; color:var(--ash);
+  }
+
+  /* ---- Timeline ---- */
+  .tl{max-width:var(--text-maxw); margin:36px auto 0;}
+  .tl-item{
+    padding:26px 0;
+    border-top:1px solid var(--hairline);
+    transition:padding-left .2s ease;
+  }
+  .tl-item:hover{padding-left:8px;}
+  .tl-item:first-child{border-top:none;}
+  .tl-date{font-size:13px; color:var(--link-blue); display:block; margin-bottom:6px;}
+  .tl-item h3{font-size:19px; font-weight:600; margin-bottom:4px;}
+  .tl-item .org{display:block; font-size:14px; color:var(--ash); margin-bottom:10px;}
+  .tl-item ul{margin:8px 0 0; padding-left:20px;}
+  .tl-item li{margin-bottom:6px; font-size:15px; color:var(--smoke);}
+  .tl-item p{font-size:15px; color:var(--smoke); margin-bottom:0;}
+
+  /* ---- Technology ---- */
+  .tech-block{max-width:var(--text-maxw); margin:0 auto;}
+  .tech-block h3{font-size:21px; margin:34px 0 8px;}
+  .tech-block h3:first-child{margin-top:0;}
+  .tech-block p{font-size:16px; color:var(--smoke);}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .tag{
+    font-size:13px; color:var(--ash);
+    border:1px solid var(--hairline); border-radius:980px;
+    padding:5px 14px;
+  }
+
+  /* ---- Skills ---- */
+  .skill-cols{
+    display:flex; justify-content:center; gap:72px; flex-wrap:wrap; margin-top:8px;
+  }
+  .skill-col h4{
+    font-size:13px; color:var(--ash); text-transform:uppercase; letter-spacing:0.05em;
+    font-weight:400; margin:0 0 14px; text-align:center;
+  }
+  .skill-col ul{list-style:none; margin:0; padding:0;}
+  .skill-col li{
+    padding:9px 0; border-bottom:1px solid var(--hairline);
+    font-size:15px; min-width:210px; text-align:center;
+  }
+  .skill-col li:last-child{border-bottom:none;}
+
+  /* ---- Footer ---- */
+  footer{
+    background:var(--carbon);
+    color:var(--frost);
+    padding:64px 0 40px;
+    text-align:center;
+  }
+  footer h2{color:var(--white); font-size:32px; margin-bottom:14px;}
+  footer p{color:#a1a1a6; font-size:16px; max-width:520px; margin:0 auto 26px;}
+  .contact-row{
+    display:flex; justify-content:center; gap:24px; flex-wrap:wrap;
+    font-size:14px; color:#a1a1a6; margin-top:30px;
+  }
+  .contact-row a{color:#a1a1a6;}
+  .foot-rule{border-top:1px solid #333336; margin-top:36px; padding-top:20px;}
+  .foot-note{font-size:12px; color:#6e6e73;}
+
+  /* ---- Back to top ---- */
+  .to-top{
+    position:fixed; right:24px; bottom:24px; z-index:60;
+    width:40px; height:40px; border-radius:50%;
+    background:var(--apple-blue); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none; font-size:15px;
+    opacity:0; pointer-events:none; transform:translateY(8px);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .to-top.show{opacity:1; pointer-events:auto; transform:translateY(0);}
+
+  @media (max-width:640px){
+    .hero h1{font-size:38px;}
+    .hero .lede{font-size:21px;}
+    section{padding:52px 0;}
+    .section-title{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+
+<nav class="nav" id="siteNav">
+  <div class="wrap">
+    <a href="#top" class="nav-name">Abdullah Imran Kabir</a>
+    <div class="nav-links">
+      <a href="#why-saudi">Why Saudi</a>
+      <a href="#education">Education</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#technology">Technology</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cv" href="AbdullahImranKabirCV.pdf" target="_blank" rel="noopener">Download CV</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-kicker">Applicant Portfolio</div>
+    <h1>Abdullah Imran Kabir</h1>
+    <p class="lede">Commerce graduate from Kuwait, applying to study Business Administration in Saudi Arabia — with a growing interest in how technology is reshaping business.</p>
+    <div class="hero-meta">
+      <span>Kuwait</span>
+      <span>+965 6518 2426</span>
+      <a href="https://iamabdullah168.com">iamabdullah168.com</a>
+    </div>
+    <div class="btn-row">
+      <a class="pill pill-filled" href="AbdullahImranKabirCV.pdf" download>Download CV</a>
+      <a class="pill pill-outline" href="story.html">Read my story</a>
+    </div>
+    <div class="hero-photo" id="heroPhoto">
+      <img src="profile.jpg" alt="Portrait of Abdullah Imran Kabir">
+    </div>
+  </div>
+</header>
+
+<section id="why-saudi" class="band-white reveal">
+  <div class="wrap">
+    <div class="section-eyebrow">Motivation</div>
+    <h2 class="section-title">Why Saudi Arabia</h2>
+    <div class="prose">
+      <p>I grew up in Kuwait, in a Bangladeshi household, studying a Commerce curriculum that pushed me toward business, economics, and information systems at the same time. That combination is exactly what draws me to Saudi Arabia right now.</p>
+      <p>The Kingdom's Vision 2030 push is turning entire sectors — finance, logistics, retail, technology — into places where a business graduate with real technical fluency has more to offer than one without it. I want to study somewhere that treats that combination as normal, not niche: a Business Administration program in a market that is actively building the industries I'd be studying, close enough to home that I can stay connected to the Gulf business environment I already know.</p>
+      <p>I'm not applying because it's convenient. I'm applying because the region I've grown up watching — its ports, its retail sector, its rapidly digitizing companies — is the same region I want to build a career in, and studying there means learning the market from inside it rather than from a textbook written for somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="band-frost reveal">
+  <div class="wrap">
+    <div class="section-eyebrow">Academics</div>
+    <h2 class="section-title">Education</h2>
+    <div class="prose" style="text-align:center;">
+      <p><strong>Higher Secondary Education, Commerce Stream</strong> — CBSE Board<br>
+      Integrated Indian School, Jleeb Al-Shuyoukh, Kuwait · Class of 2026 · Overall 80%</p>
+    </div>
+
+    <div class="grade-grid" id="gradeGrid">
+      <div class="grade-tile"><div class="subj">English Core</div><div class="mark" data-target="92">0</div></div>
+      <div class="grade-tile"><div class="subj">Economics</div><div class="mark" data-target="81">0</div></div>
+      <div class="grade-tile"><div class="subj">Business Studies</div><div class="mark" data-target="77">0</div></div>
+      <div class="grade-tile"><div class="subj">Physical Education</div><div class="mark" data-target="79">0</div></div>
+      <div class="grade-tile"><div class="subj">Informatics Practices</div><div class="mark" data-target="71">0</div></div>
+      <div class="grade-tile"><div class="subj">Accountancy</div><div class="mark" data-target="64">0</div></div>
+    </div>
+
+    <div class="quote-row">
+      <div class="quote">
+        Determination to excel, willingness to take on challenges with confidence and responsibility.
+        <cite>Jithin Thomas, Business Studies Faculty (HOD)</cite>
+      </div>
+      <div class="quote">
+        Highly industrious, with strong analytical thinking and a genuine eagerness to explore concepts beyond the classroom.
+        <cite>Jinshy Ajish, Informatics Practices Faculty</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership" class="band-white reveal">
+  <div class="wrap">
+    <div class="section-eyebrow">Experience</div>
+    <h2 class="section-title">Leadership &amp; Community</h2>
+    <div class="tl">
+      <div class="tl-item">
+        <span class="tl-date">2025 – 2026</span>
+        <h3>House Captain</h3>
+        <span class="org">Integrated Indian School, Kuwait</span>
+        <p>Led my school house through the academic year, coordinating and organizing a school event that drew strong attendance and was recognized by faculty.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">May – July 2026</span>
+        <h3>Assistant Supervisor (Part-time)</h3>
+        <span class="org">Al Mohra Delivery Company, Kuwait</span>
+        <ul>
+          <li>Supported the supervisor in coordinating day-to-day operations for a team of over 30 delivery drivers</li>
+          <li>Assisted with scheduling and performance tracking, and helped keep communication between drivers and management organized</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">January 2026</span>
+        <h3>Volunteer, Free Medical Camp for Bangladeshi Expatriates</h3>
+        <span class="org">Organized by Bangladeshi Professionals &amp; Business Personnel in Kuwait, under the patronage of the Embassy of the People's Republic of Bangladesh, Kuwait</span>
+        <ul>
+          <li>Supported patient registration and documentation on the day of the camp</li>
+          <li>Guided patients through the consultation process to keep the workflow moving smoothly</li>
+          <li>Coordinated with healthcare teams and kept records organized throughout</li>
+        </ul>
+        <p>Received a Certificate of Appreciation signed by the Ambassador, and have since been invited to further Embassy-linked community events.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">Ongoing</span>
+        <h3>Family Business — Store Assistant</h3>
+        <span class="org">Convenience Store, Kuwait</span>
+        <ul>
+          <li>Handled customer purchases, inquiries, and cash transactions at the register</li>
+          <li>Restocked shelves and maintained store presentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="technology" class="band-ice reveal">
+  <div class="wrap">
+    <div class="section-eyebrow">Building</div>
+    <h2 class="section-title">Technology &amp; AI</h2>
+    <div class="tech-block">
+      <p style="text-align:center; font-size:17px;">The Informatics Practices grade above isn't a coincidence — I actually build things.</p>
+
+      <h3>Generative AI Mastermind — Outskill</h3>
+      <p>Completed a hands-on generative AI program run by Outskill, focused on applying AI tools to real, practical workflows rather than just reading about the theory behind them.</p>
+
+      <h3>Independent Project: Tactical 2v2 Shooter, Roblox Studio</h3>
+      <p>I'm currently designing and building a 4-player, first-person tactical shooter in Roblox — from the ground up, in Luau. It's a small, close-quarters arena game built around positioning and teamwork rather than speed, and it's still an early, evolving prototype. Working on it end-to-end — design, mechanics, and build — has been my main way of turning an interest in software into something real outside the classroom.</p>
+      <div class="tag-row">
+        <span class="tag">Roblox Studio · Luau</span>
+        <span class="tag">2v2, first-person</span>
+        <span class="tag">PC + mobile</span>
+        <span class="tag">In progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="band-white reveal">
+  <div class="wrap">
+    <div class="section-eyebrow">Reference</div>
+    <h2 class="section-title">Skills &amp; Languages</h2>
+    <div class="skill-cols">
+      <div class="skill-col">
+        <h4>Skills</h4>
+        <ul>
+          <li>Problem solving</li>
+          <li>Communication &amp; collaboration</li>
+          <li>Time management</li>
+          <li>Adaptability</li>
+          <li>Coordination</li>
+          <li>Fast learner</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Languages</h4>
+        <ul>
+          <li>English</li>
+          <li>Hindi</li>
+          <li>Bangla</li>
+          <li>Urdu</li>
+          <li>Arabic (basic)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact" class="reveal">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p>This site exists to give admissions teams one place to see what I've actually done. Happy to send transcripts, references, or the Roblox prototype on request.</p>
+    <div class="btn-row">
+      <a class="pill pill-filled" href="AbdullahImranKabirCV.pdf" download>Download CV</a>
+    </div>
+    <div class="contact-row">
+      <span>+965 6518 2426</span>
+      <a href="https://iamabdullah168.com">iamabdullah168.com</a>
+      <span>Kuwait</span>
+    </div>
+    <div class="foot-rule">
+      <div class="foot-note">Abdullah Imran Kabir · Applicant portfolio, prepared for university admissions review.</div>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="to-top" id="toTop" aria-label="Back to top">↑</a>
+
+<script>
+  // Scroll progress bar
+  const progressBar = document.getElementById('progressBar');
+  function updateProgress(){
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  window.addEventListener('scroll', updateProgress);
+
+  // Reveal sections on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Count-up animation for grades
+  const marks = document.querySelectorAll('.mark[data-target]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.done) {
+        entry.target.dataset.done = "1";
+        const target = parseInt(entry.target.getAttribute('data-target'), 10);
+        const duration = 900;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          entry.target.textContent = Math.round(target * eased);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  marks.forEach(m => countObserver.observe(m));
+
+  // Subtle hero photo parallax following the cursor
+  const heroPhoto = document.getElementById('heroPhoto');
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const relX = (e.clientX - rect.left) / rect.width - 0.5;
+    const relY = (e.clientY - rect.top) / rect.height - 0.5;
+    heroPhoto.style.transform = `translate(${relX * 10}px, ${relY * 10}px)`;
+  });
+  hero.addEventListener('mouseleave', () => { heroPhoto.style.transform = 'translate(0,0)'; });
+
+  // Back to top
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    toTop.classList.toggle('show', window.scrollY > 700);
+  });
+
+  // Active nav link
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = ['why-saudi','education','leadership','technology','skills','contact']
+    .map(id => document.getElementById(id)).filter(Boolean);
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
